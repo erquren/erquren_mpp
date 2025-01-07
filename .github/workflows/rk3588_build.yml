@@ -49,9 +49,7 @@ jobs:
           echo "set(CMAKE_STRIP \${TOOLCHAIN_PREFIX}-strip CACHE INTERNAL \"strip tool\")" >> coc_toolchain.cmake
 
           # install的路径
-
-      
-          mkdir -p /root/rkmpp_install
-          cmake -DCMAKE_TOOLCHAIN_FILE=$GITHUB_WORKSPACE/build_rkmpp/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/coc_toolchain.cmake -DCMAKE_INSTALL_PREFIX=/root/rkmpp_install -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_TEST=OFF ..
+          mkdir -p $GITHUB_WORKSPACE/rkmpp_install
+          cmake -DCMAKE_TOOLCHAIN_FILE=$GITHUB_WORKSPACE/build_rkmpp/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/coc_toolchain.cmake -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/rkmpp_install $GITHUB_WORKSPACE/mpp
           make -j8
           make install
