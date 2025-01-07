@@ -76,5 +76,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-artifacts
-          path: ${{ github.workspace }}/rkmpp_install.tar.gz
+          path: ${{ github.workspace }}/build_rkmpp/rkmpp_install.tar.gz
 
