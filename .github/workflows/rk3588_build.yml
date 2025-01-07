@@ -68,6 +68,6 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: build-artifacts
+          name: rkmpp_install
           path: ${{ github.workspace }}/build_rkmpp/rkmpp_install
 
