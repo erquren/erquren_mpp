@@ -57,13 +57,6 @@ jobs:
           make -j8
           make install
 
-          # 打包 rkmpp_install 变成 rkmpp_install.tar.gz
-          cd $the_path
-          tar -czvf rkmpp_install.tar.gz rkmpp_install
-          # 打印压缩包的路径
-          echo "now the path is $the_path/rkmpp_install.tar.gz"
-          # 打印压缩包的大小，按照MB显示
-          echo "the size of rkmpp_install.tar.gz is $(du -m $the_path/rkmpp_install.tar.gz | cut -f1)MB"
 
           echo "build done"
 
@@ -76,5 +69,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-artifacts
-          path: ${{ github.workspace }}/build_rkmpp/rkmpp_install.tar.gz
+          path: ${{ github.workspace }}/build_rkmpp/rkmpp_install
 
