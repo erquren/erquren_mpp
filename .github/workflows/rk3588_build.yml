@@ -56,3 +56,14 @@ jobs:
           cmake -DCMAKE_TOOLCHAIN_FILE=coc_toolchain.cmake -DCMAKE_INSTALL_PREFIX=$the_path/rkmpp_install -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_TEST=OFF ..
           make -j8
           make install
+
+          # 打包
+          cd $the_path/rkmpp_install
+          tar -czvf rkmpp_install.tar.gz *
+          mv rkmpp_install.tar.gz $the_path
+
+      - name: upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: rkmpp_install
+            
