@@ -28,8 +28,8 @@ jobs:
 
       - name: build
         run: |
-          mkdir build
-          cd build
+          mkdir build_rkmpp
+          cd build_rkmpp
           # 获取当前路径
           
 
@@ -40,7 +40,7 @@ jobs:
           echo "set(CMAKE_SYSTEM_NAME Linux)" > coc_toolchain.cmake
           echo "set(CMAKE_SYSTEM_VERSION 1)" >> coc_toolchain.cmake
           echo "set(CMAKE_SYSTEM_PROCESSOR arm)" >> coc_toolchain.cmake
-          echo "set(TOOLCHAIN_PREFIX \$GITHUB_WORKSPACE/build/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu)" >> coc_toolchain.cmake
+          echo "set(TOOLCHAIN_PREFIX \$GITHUB_WORKSPACE/build_rkmpp/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu)" >> coc_toolchain.cmake
           echo "set(CMAKE_C_COMPILER \${TOOLCHAIN_PREFIX}-gcc)" >> coc_toolchain.cmake
           echo "set(CMAKE_CXX_COMPILER \${TOOLCHAIN_PREFIX}-g++)" >> coc_toolchain.cmake
           echo "set(CMAKE_ASM_COMPILER \${TOOLCHAIN_PREFIX}-gcc)" >> coc_toolchain.cmake
@@ -52,6 +52,6 @@ jobs:
 
       
           mkdir -p /root/rkmpp_install
-          cmake -DCMAKE_TOOLCHAIN_FILE=$GITHUB_WORKSPACE/build/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/coc_toolchain.cmake -DCMAKE_INSTALL_PREFIX=/root/rkmpp_install -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_TEST=OFF ..
+          cmake -DCMAKE_TOOLCHAIN_FILE=$GITHUB_WORKSPACE/build_rkmpp/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/coc_toolchain.cmake -DCMAKE_INSTALL_PREFIX=/root/rkmpp_install -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_TEST=OFF ..
           make -j8
           make install
