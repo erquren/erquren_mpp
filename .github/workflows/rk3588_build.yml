@@ -57,14 +57,16 @@ jobs:
           make -j8
           make install
 
-          # 打包
-          cd $the_path/rkmpp_install
-          tar -czvf rkmpp_install.tar.gz *
-          mv rkmpp_install.tar.gz $the_path
+          # 打包 rkmpp_install 变成 rkmpp_install.tar.gz
+          cd $the_path
+          tar -czvf rkmpp_install.tar.gz rkmpp_install
+
+          
+          
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
           name: build-artifacts
-          path: ${{ github.workspace }}/rkmpp_install/rkmpp_install.tar.gz
+          path: ${{ github.workspace }}/rkmpp_install.tar.gz
 
