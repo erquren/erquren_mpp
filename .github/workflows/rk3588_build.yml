@@ -1,0 +1,57 @@
+# This is a basic workflow to help you get started with Actions
+
+name: build_mpp_rk3588
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+
+      - name: build
+        run: |
+          mkdir build
+          cd build
+          # 获取当前路径
+          
+
+          wget https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu/11.3.rel1/binrel/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu.tar.xz
+          tar -xf arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu.tar.xz
+
+          # 配置交叉编译工具链
+          echo "set(CMAKE_SYSTEM_NAME Linux)" > coc_toolchain.cmake
+          echo "set(CMAKE_SYSTEM_VERSION 1)" >> coc_toolchain.cmake
+          echo "set(CMAKE_SYSTEM_PROCESSOR arm)" >> coc_toolchain.cmake
+          echo "set(TOOLCHAIN_PREFIX \$GITHUB_WORKSPACE/build/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu)" >> coc_toolchain.cmake
+          echo "set(CMAKE_C_COMPILER \${TOOLCHAIN_PREFIX}-gcc)" >> coc_toolchain.cmake
+          echo "set(CMAKE_CXX_COMPILER \${TOOLCHAIN_PREFIX}-g++)" >> coc_toolchain.cmake
+          echo "set(CMAKE_ASM_COMPILER \${TOOLCHAIN_PREFIX}-gcc)" >> coc_toolchain.cmake
+          echo "set(CMAKE_OBJCOPY \${TOOLCHAIN_PREFIX}-objcopy CACHE INTERNAL \"objcopy tool\")" >> coc_toolchain.cmake
+          echo "set(CMAKE_OBJDUMP \${TOOLCHAIN_PREFIX}-objdump CACHE INTERNAL \"objdump tool\")" >> coc_toolchain.cmake
+          echo "set(CMAKE_STRIP \${TOOLCHAIN_PREFIX}-strip CACHE INTERNAL \"strip tool\")" >> coc_toolchain.cmake
+
+          # install的路径
+
+      
+          mkdir -p /root/rkmpp_install
+          cmake -DCMAKE_TOOLCHAIN_FILE=$GITHUB_WORKSPACE/build/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/coc_toolchain.cmake -DCMAKE_INSTALL_PREFIX=/root/rkmpp_install -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_TEST=OFF ..
+          make -j8
+          make install
