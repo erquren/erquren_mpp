@@ -37,23 +37,23 @@ jobs:
           tar -xf arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu.tar.xz
 
           # 配置交叉编译工具链
-          echo "set(CMAKE_SYSTEM_NAME Linux)" > coc_toolchain.cmake
-          echo "set(CMAKE_SYSTEM_VERSION 1)" >> coc_toolchain.cmake
-          echo "set(CMAKE_SYSTEM_PROCESSOR arm)" >> coc_toolchain.cmake
+          echo "set(CMAKE_SYSTEM_NAME Linux)" > erquren_3588_toolchain.cmake
+          echo "set(CMAKE_SYSTEM_VERSION 1)" >> erquren_3588_toolchain.cmake
+          echo "set(CMAKE_SYSTEM_PROCESSOR arm)" >> erquren_3588_toolchain.cmake
           
           the_path=$(pwd)
-          echo "set(TOOLCHAIN_PREFIX $the_path/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu)" >> coc_toolchain.cmake
-          echo "set(CMAKE_C_COMPILER \${TOOLCHAIN_PREFIX}-gcc)" >> coc_toolchain.cmake
-          echo "set(CMAKE_CXX_COMPILER \${TOOLCHAIN_PREFIX}-g++)" >> coc_toolchain.cmake
-          echo "set(CMAKE_ASM_COMPILER \${TOOLCHAIN_PREFIX}-gcc)" >> coc_toolchain.cmake
-          echo "set(CMAKE_OBJCOPY \${TOOLCHAIN_PREFIX}-objcopy CACHE INTERNAL \"objcopy tool\")" >> coc_toolchain.cmake
-          echo "set(CMAKE_OBJDUMP \${TOOLCHAIN_PREFIX}-objdump CACHE INTERNAL \"objdump tool\")" >> coc_toolchain.cmake
-          echo "set(CMAKE_STRIP \${TOOLCHAIN_PREFIX}-strip CACHE INTERNAL \"strip tool\")" >> coc_toolchain.cmake
+          echo "set(TOOLCHAIN_PREFIX $the_path/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu)" >> erquren_3588_toolchain.cmake
+          echo "set(CMAKE_C_COMPILER \${TOOLCHAIN_PREFIX}-gcc)" >> erquren_3588_toolchain.cmake
+          echo "set(CMAKE_CXX_COMPILER \${TOOLCHAIN_PREFIX}-g++)" >> erquren_3588_toolchain.cmake
+          echo "set(CMAKE_ASM_COMPILER \${TOOLCHAIN_PREFIX}-gcc)" >> erquren_3588_toolchain.cmake
+          echo "set(CMAKE_OBJCOPY \${TOOLCHAIN_PREFIX}-objcopy CACHE INTERNAL \"objcopy tool\")" >> erquren_3588_toolchain.cmake
+          echo "set(CMAKE_OBJDUMP \${TOOLCHAIN_PREFIX}-objdump CACHE INTERNAL \"objdump tool\")" >> erquren_3588_toolchain.cmake
+          echo "set(CMAKE_STRIP \${TOOLCHAIN_PREFIX}-strip CACHE INTERNAL \"strip tool\")" >> erquren_3588_toolchain.cmake
 
           # install的路径 the_path后的rkmpp_install
           mkdir -p $the_path/rkmpp_install
           
-          cmake -DCMAKE_TOOLCHAIN_FILE=coc_toolchain.cmake -DCMAKE_INSTALL_PREFIX=$the_path/rkmpp_install -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_TEST=OFF ..
+          cmake -DCMAKE_TOOLCHAIN_FILE=erquren_3588_toolchain.cmake -DCMAKE_INSTALL_PREFIX=$the_path/rkmpp_install -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_TEST=OFF ..
           make -j8
           make install
 
