@@ -62,8 +62,9 @@ jobs:
           tar -czvf rkmpp_install.tar.gz *
           mv rkmpp_install.tar.gz $the_path
 
-      - name: upload
-        uses: actions/upload-artifact@v2
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
         with:
-          name: rkmpp_install
-            
+          name: build-artifacts
+          path: ${{ github.workspace }}/rkmpp_install/rkmpp_install.tar.gz
+
