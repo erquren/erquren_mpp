@@ -50,6 +50,6 @@ jobs:
 
           # install的路径
           mkdir -p $GITHUB_WORKSPACE/rkmpp_install
-          cmake -DCMAKE_TOOLCHAIN_FILE=$GITHUB_WORKSPACE/build_rkmpp/arm-gnu-toolchain-11.3.rel1-x86_64-aarch64-none-linux-gnu/coc_toolchain.cmake -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/rkmpp_install $GITHUB_WORKSPACE/mpp
+          cmake -DCMAKE_TOOLCHAIN_FILE=coc_toolchain.cmake -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/rkmpp_install $GITHUB_WORKSPACE/mpp
           make -j8
           make install
